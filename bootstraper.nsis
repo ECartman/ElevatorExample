@@ -1,0 +1,29 @@
+# name the installer
+RequestExecutionLevel user
+OutFile "ElevatorEmulator.exe"
+ 
+# output of the installer data 
+InstallDir $TEMP\ElevatorEmulation
+
+ManifestDPIAware True
+AutoCloseWindow True
+SilentInstall silent
+
+BrandingText "Code Example By Eduardo Vindas @ Microsoft"
+
+# default section start; every NSIS script has at least one section.
+Section Install
+ 
+ CreateDirectory $INSTDIR
+ SetOutPath $INSTDIR
+ File /r "C:\Users\edvindas\OneDrive - Microsoft\Desktop\jfxtest\target\*"
+ 
+#nsExec::ExecToLog '"$INSTDIR\image\bin\java.exe" -m com.microsoft.jfx.test/com.microsoft.jfx.test.App'
+#ExecWait '"$INSTDIR\image\bin\javaw.exe" -m com.microsoft.jfx.test/com.microsoft.jfx.test.App'
+ExecWait '"$INSTDIR\image\bin\javaw.exe" -m com.microsoft.jfx.test/com.microsoft.jfx.test.App'
+
+# Delete the expanded files. 
+RMDir /r $INSTDIR
+
+# default section end
+SectionEnd
